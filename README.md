@@ -2,7 +2,7 @@
 > **Biological Telemetry & AI Usage Self-Simulation**
 
 [![GitHub Pages](https://img.shields.io/badge/Deployment-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://pages.github.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by/4.0/)
 
 ## 🌐 Overview
 The **Neuro-Safety Dashboard** is a self-simulation tool designed to help humans understand the biological limits of AI interaction. While AI can process information at near-infinite speeds, the human brain is bound by a **60-bit per second bottleneck**. 
