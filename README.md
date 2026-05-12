@@ -1,4 +1,4 @@
-# 🧠 Neuro-Safety Dashboard (v2.9)
+# 🧠 Neuro-Safety Dashboard
 > **Biological Telemetry & AI Usage Self-Simulation**
 
 [![GitHub Pages](https://img.shields.io/badge/Deployment-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://pages.github.com/)
