@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuro-computational Dashboard v1.1.0</title>
+    <title>Neuro-computational Dashboard v1.2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
@@ -59,7 +59,7 @@
 <body class="p-4 md:p-8">
     <header class="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-            <h1 id="txt-title" class="text-3xl font-black tracking-tight">Neuro-Safety Dashboard <span class="text-slate-500 font-light italic text-xl">v1.1.0</span></h1>
+            <h1 id="txt-title" class="text-3xl font-black tracking-tight">Neuro-Safety Dashboard <span class="text-slate-500 font-light italic text-xl">v1.2.0</span></h1>
             <p id="txt-subtitle" class="text-slate-400 font-medium"></p>
         </div>
         <div class="flex items-center gap-6">
@@ -172,64 +172,19 @@
             </section>
         </div>
 
+        <!-- The Strategic Protocols (Detail Block) -->
+        <section class="glass p-8 rounded-3xl border-white/5">
+            <h2 id="txt-encyclopedia-h" class="text-sky-400 font-black uppercase text-sm tracking-[0.3em] mb-10 text-center"></h2>
+            <div id="encyclopedia-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Content generated via JS -->
+            </div>
+        </section>
+
         <!-- Typical Day Roadmap -->
         <section class="glass p-8 rounded-3xl border-white/5">
             <h2 id="txt-day-h" class="text-sky-400 font-black uppercase text-xs tracking-[0.2em] mb-8 text-center"></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 9:00 AM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">09:00 AM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold uppercase">Protocol F</span>
-                    </div>
-                    <h3 id="txt-day-1-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-1-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
-                <!-- 10:30 AM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">10:30 AM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold uppercase">Protocol B & C</span>
-                    </div>
-                    <h3 id="txt-day-2-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-2-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
-                <!-- 11:30 AM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">11:30 AM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[9px] font-bold uppercase">Protocol A</span>
-                    </div>
-                    <h3 id="txt-day-3-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-3-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
-                <!-- 2:00 PM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">02:00 PM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-500 text-[9px] font-bold uppercase">Protocol E</span>
-                    </div>
-                    <h3 id="txt-day-4-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-4-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
-                <!-- 4:00 PM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">04:00 PM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[9px] font-bold uppercase">Protocol C</span>
-                    </div>
-                    <h3 id="txt-day-5-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-5-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
-                <!-- 5:30 PM -->
-                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sky-400 font-bold text-xs uppercase">05:30 PM</span>
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[9px] font-bold uppercase">Protocol F</span>
-                    </div>
-                    <h3 id="txt-day-6-h" class="font-bold text-sm text-slate-200 uppercase tracking-tight"></h3>
-                    <p id="txt-day-6-p" class="text-xs text-slate-400 leading-relaxed"></p>
-                </div>
+            <div id="day-roadmap" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Content generated via JS -->
             </div>
         </section>
     </main>
@@ -245,31 +200,36 @@
                 lblTsf: 'Task Switching Frequency', lblComplexity: 'Output Complexity (Tokens)',
                 preShort: 'Short Answer', preInfo: 'Infographic', preDoc: 'Full Document', preResearch: 'Deep Research',
                 lblHour: 'Time of the day', hourNote: 'Current time in your local time zone.',
-                theoryH: 'Cognitive Theory', theoryP: 'The human brain possesses a conscious processing limit (Tb) of roughly 60 bits per second. AI operates at algorithmic speeds (Tg) that often exceed this biological funnel, leading to a loss of auditing integrity. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Read more</a>',
-                usageH: 'How to use', usageP: 'Adjust the Frequency (prompts per hour) and Complexity (AI output size) to see the impact on your effective capacity. Observe how the time of day increases metabolic debt.',
-                disclaimerH: 'Disclaimer', disclaimerP: 'This tool is an educational explainer based on neuro-computational research. It is designed for self-awareness and is not a clinical or pure mathematical model.',
+                theoryH: 'Cognitive Theory', theoryP: 'The human brain possesses a conscious processing limit (Tb) of roughly 60 bits per second. AI auditing involves resolving "Surprisal"—uncertainty that exceeds this biological funnel. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Read Part 5</a>',
+                usageH: 'How to use', usageP: 'Adjust frequency (Tg velocity) and complexity (bit-load) to see the impact on your effective capacity. Observe the "Metabolic Lockout" threshold in the Amber/Red zones.',
+                disclaimerH: 'Disclaimer', disclaimerP: 'Educational explainer based on neuro-computational research (Wiehler, Porges, Friston). Designed for self-awareness, not clinical diagnostic use.',
                 clnLabel: 'Audit Latency', bitsLabel: 'Bits / Second', limitLabel: 'Effective Capacity',
                 statusGreen: 'Status: Safe', statusAmber: 'Status: Warning', statusRed: 'Status: Critical', statusCritical: 'Status: Failure',
                 gaugeTsf: 'Task Switching Frequency', gaugeMet: 'Metabolic Load (lpFC)', protocolTitle: 'Recommended Protocol',
                 footer: 'Neuro-computational Audit Framework | Biological Throttling Simulation', reset: 'Reset Simulation',
                 dayH: 'A Typical Neuro-Sovereign Day',
-                day1h: 'Analog Shield', day1p: 'Solve problems entirely without AI for 90m. This protects your creative DMN when it is most flexible.',
-                day2h: 'Human-in-Command', day2p: 'Author your core logic before asking the AI to expand it. Stay as the sovereign architect.',
-                day3h: 'The 50/10 Reset', day3p: 'For every 50m of AI, mandate 10m of total analog recovery. Reset your Vagal Brake manually.',
-                day4h: 'Calibration Sandbox', day4p: 'Use experimental tools in a weightless environment to find the frontier without status threat.',
-                day5h: 'The Velocity Cap', day5p: 'Reduce prompt frequency as metabolic debt peaks. Protect your reputation from fatigue errors.',
-                day6h: 'Benchmark Check', day6p: 'End with a 15m unassisted problem-solving sprint to prove you are still the primary intelligence.',
+                encyclopediaH: 'Strategic Safety Protocols (A-F)',
+                protocolDetails: [
+                    { id: 'A', name: 'Cognitive Recovery Blocks', why: 'Reset the Vagal Brake and clear glutamate exhaust from the lpFC.', how: 'Mandatory 10m analog gap every 50-90m. Practice 6 breaths/min coherence.' },
+                    { id: 'B', name: 'Human-in-Command', why: 'Restore agency and reduce dACC social pain (Mirror Effect).', how: 'Move from passive receipt to Adversarial Collaboration; intuition overrides data.' },
+                    { id: 'C', name: 'The Slow AI Movement', why: 'Prevent Automation Bias and "rubber-stamping" errors.', how: 'Synthesis First Rule: Author core logic before triggering AI expansion.' },
+                    { id: 'D', name: 'Blind Calibration', why: 'Reactivate the Default Mode Network and prevent Predictive Atrophy.', how: 'Mandatory monthly audits of high-stakes tasks without any AI assistance.' },
+                    { id: 'E', name: 'Deployment Sandboxes', why: 'Maintain Ventral Vagal safety by removing performance pressure.', how: 'Use "Safe Zones" for tool calibration; prioritize human qualitative appraisal.' },
+                    { id: 'F', name: 'Predictive Priming', why: 'Keep the critical auditing muscle sharp to detect hallucinations.', how: '15m unassisted problem-solving Analog Sprints at start/end of day.' }
+                ],
+                dayContent: [
+                    { time: '09:00 AM', label: 'Protocol F', title: 'Analog Shield', desc: 'Solve problems unassisted for 90m to protect the DMN when it is most creative.' },
+                    { time: '10:30 AM', label: 'Protocol B & C', title: 'Human-in-Command', desc: 'Synthesis first. Define strategy before the AI Information Tsunami begins.' },
+                    { time: '11:30 AM', label: 'Protocol A', title: 'The 50/10 Reset', desc: 'Mandate 10m analog recovery. Reset Heart Rate Variability manually.' },
+                    { time: '02:00 PM', label: 'Protocol E', title: 'Calibration Sandbox', desc: 'Test tools in a safe harbor to find the "Jagged Frontier" without status threat.' },
+                    { time: '04:00 PM', label: 'Protocol C', title: 'The Velocity Cap', desc: 'Reduce frequency as glutamate peaks. Prevent fatigue errors.' },
+                    { time: '05:30 PM', label: 'Protocol F', title: 'Benchmark Check', desc: 'End with a 15m unassisted sprint to prove independent intelligence.' }
+                ],
                 states: {
-                    green: { title: "Sovereign State", desc: "Predictive integrity is high. Prefrontal cortex is at baseline." },
-                    amber: { title: "Metabolic Throttling", desc: "Glutamate levels rising. Onset of Automation Bias detected." },
+                    green: { title: "Sovereign State", desc: "Predictive integrity is high. Prefrontal cortex is at homeostasis." },
+                    amber: { title: "Metabolic Throttling", desc: "Glutamate rising. " + "Automation Bias" + " detected." },
                     red: { title: "Jacksonian Dissolution", desc: "Vagal Brake failed. Regression to reactive survival circuits." },
                     critical: { title: "Cognitive Outsourcing", desc: "Total Human Outage. Machine is driving the vessel." }
-                },
-                protocols: {
-                    green: { name: "Predictive Integrity Drill", action1: "Active DMN Enrichment", action2: "15m Analog Sprint: Solve without AI." },
-                    amber: { name: "Autonomic Reset", action1: "Vagal Brake Reset", action2: "50/10 rule: 10m analog recovery." },
-                    red: { name: "Systemic Audit Buffer", action1: "Mandatory System Lockout", action2: "30m Lockout: Reset Vagal Brake." },
-                    critical: { name: "Human-in-Command Pivot", action1: "Emergency Reset", action2: "Shift to unmediated authority." }
                 },
                 tags: { optimal: 'Optimal', stressed: 'Stressed', overload: 'Overload', failure: 'Failure', homeostasis: 'Homeostasis', accumulating: 'Accumulating', exhausted: 'Exhausted', externalized: 'Externalized' }
             },
@@ -278,97 +238,112 @@
                 lblTsf: 'Fréquence de Commutation de Tâches', lblComplexity: 'Complexité de Sortie (Tokens)',
                 preShort: 'Réponse Courte', preInfo: 'Infographie', preDoc: 'Document Complet', preResearch: 'Recherche Profonde',
                 lblHour: 'Heure de la journée', hourNote: 'Heure actuelle dans votre fuseau horaire.',
-                theoryH: 'Théorie Cognitive', theoryP: 'Le cerveau humain possède une limite de traitement conscient (Tb) d\'environ 60 bits par seconde. L\'IA opère à des vitesses algorithmiques (Tg) dépassant souvent cet entonnoir biologique, entraînant une perte d\'intégrité de l\'audit. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">En savoir plus</a>',
-                usageH: 'Comment utiliser', usageP: 'Ajustez la fréquence (prompts par heure) et la complexité (taille de sortie de l\'IA) pour voir l\'impact sur votre capacité effective. Observez comment l\'heure de la journée augmente la dette métabolique.',
-                disclaimerH: 'Clause de non-responsabilité', disclaimerP: 'Cet outil est un explicateur éducatif basé sur la recherche neuro-computationnelle. Il est conçu pour l\'auto-apprentissage et n\'est pas un modèle clinique ou purement mathématique.',
+                theoryH: 'Théorie Cognitive', theoryP: 'Le cerveau possède une limite consciente (Tb) d\'environ 60 bits/s. L\'audit de l\'IA implique la résolution du "Surprisal"—une incertitude dépassant cet entonnoir biologique. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Lire Partie 5</a>',
+                usageH: 'Comment utiliser', usageP: 'Ajustez la fréquence et la complexité pour voir l\'impact. Observez le seuil de "Verrouillage Métabolique" dans les zones Ambre/Rouge.',
+                disclaimerH: 'Clause de non-responsabilité', disclaimerP: 'Outil éducatif basé sur la recherche neuro-computationnelle (Wiehler, Porges, Friston). Conçu pour l\'auto-apprentissage.',
                 clnLabel: 'Latence d\'Audit', bitsLabel: 'Bits / Seconde', limitLabel: 'Capacité Effective',
                 statusGreen: 'Statut : Sûr', statusAmber: 'Statut : Attention', statusRed: 'Statut : Critique', statusCritical: 'Statut : Échec',
                 gaugeTsf: 'Fréquence de Commutation (TSF)', gaugeMet: 'Charge Métabolique (lpFC)', protocolTitle: 'Protocole Recommandé',
                 footer: 'Cadre d\'Audit Neuro-computationnel | Simulation d\'Étranglement', reset: 'Réinitialiser Simulation',
                 dayH: 'Une Journée Neuro-Souveraine Type',
-                day1h: 'Bouclier Analogique', day1p: 'Résolvez sans IA pendant 90m. Protégez votre DMN créatif quand il est le plus flexible.',
-                day2h: 'Humain-en-Commande', day2p: 'Rédigez votre logique avant de demander à l\'IA. Restez l\'architecte souverain.',
-                day3h: 'Le Reset 50/10', day3p: 'Pour 50m d\'IA, imposez 10m de récupération analogique. Réinitialisez votre frein vagal.',
-                day4h: 'Sandbox de Calibration', day4p: 'Testez les outils dans un environnement sans pression pour trouver la frontière.',
-                day5h: 'Le Cap de Vélocité', day5p: 'Réduisez la fréquence quand la dette métabolique culmine. Évitez les erreurs de fatigue.',
-                day6h: 'Vérification de Contrôle', day6p: 'Terminez par un sprint analogique de 15m pour prouver que vous êtes l\'intelligence primaire.',
+                encyclopediaH: 'Protocoles de Sécurité Stratégique (A-F)',
+                protocolDetails: [
+                    { id: 'A', name: 'Blocs de Récupération', why: 'Réinitialiser le frein vagal et évacuer l\'épuisement de glutamate.', how: 'Pause analogique de 10m toutes les 50-90m. Cohérence respiratoire.' },
+                    { id: 'B', name: 'Humain-en-Commande', why: 'Restaurer l\'agence et réduire la douleur sociale (effet miroir).', how: 'Passer de la réception passive à la Collaboration Adversaire.' },
+                    { id: 'C', name: 'Mouvement Slow AI', why: 'Prévenir le biais d\'automatisation et le "tamponnage" d\'erreurs.', how: 'Règle de Synthèse d\'Abord : rédiger avant l\'expansion par l\'IA.' },
+                    { id: 'D', name: 'Calibration à l\'Aveugle', why: 'Réactiver le DMN et prévenir l\'atrophie prédictive.', how: 'Audit mensuel obligatoire des tâches critiques sans aucune aide IA.' },
+                    { id: 'E', name: 'Sandboxes de Déploiement', why: 'Maintenir l\'état Ventral Vagal en supprimant la pression.', how: 'Zones sécurisées pour calibration ; privilégier l\'évaluation qualitative humaine.' },
+                    { id: 'F', name: 'Amorçage Prédictif', why: 'Garder le muscle de l\'audit critique affûté.', how: 'Sprints analogiques de 15m (sans IA) en début et fin de journée.' }
+                ],
+                dayContent: [
+                    { time: '09:00 AM', label: 'Protocole F', title: 'Bouclier Analogique', desc: 'Résolvez sans IA pendant 90m pour protéger votre DMN créatif.' },
+                    { time: '10:30 AM', label: 'Protocole B & C', title: 'Humain-en-Commande', desc: 'Synthèse d\'abord. Définissez la stratégie avant le tsunami d\'information.' },
+                    { time: '11:30 AM', label: 'Protocole A', title: 'Reset 50/10', desc: 'Pause analogique de 10m. Réinitialisez la variabilité cardiaque.' },
+                    { time: '02:00 PM', label: 'Protocole E', title: 'Sandbox de Calibration', desc: 'Testez les outils en zone sûre pour trouver la frontière sans menace.' },
+                    { time: '04:00 PM', label: 'Protocole C', title: 'Cap de Vélocité', desc: 'Réduisez la fréquence quand le glutamate culmine. Évitez les erreurs.' },
+                    { time: '05:30 PM', label: 'Protocole F', title: 'Vérification', desc: 'Sprint final de 15m sans IA pour prouver l\'intelligence souveraine.' }
+                ],
                 states: {
-                    green: { title: "État Souverain", desc: "L'intégrité prédictive est élevée. Cortex préfrontal au repos." },
-                    amber: { title: "Étranglement Métabolique", desc: "Hausse du glutamate. Début du biais d'automatisation." },
+                    green: { title: "État Souverain", desc: "L'intégrité prédictive est élevée. Cortex préfrontal à l'homéostasie." },
+                    amber: { title: "Étranglement Métabolique", desc: "Hausse du glutamate. Biais d'automatisation détecté." },
                     red: { title: "Dissolution Jacksonienne", desc: "Le frein vagal a lâché. Régression vers les circuits de survie." },
                     critical: { title: "Externalisation Cognitive", desc: "Échec Humain Total. La machine pilote le vaisseau." }
-                },
-                protocols: {
-                    green: { name: "Sprint d'Intégrité Prédictive", action1: "Enrichissement DMN Actif", action2: "15m Sprint Analogique : Résoudre sans IA." },
-                    amber: { name: "Réinitialisation Autonomique", action1: "Reset du Frein Vagal", action2: "Règle 50/10 : 10m de récupération." },
-                    red: { name: "Tampon d'Audit Systémique", action1: "Verrouillage Système Obligatoire", action2: "30m d'Arrêt : Réinitialiser le matériel." },
-                    critical: { name: "Pivot Humain-en-Commande", action1: "Reset d'Urgence", action2: "Passer à l'autorité souveraine." }
                 },
                 tags: { optimal: 'Optimal', stressed: 'Stressé', overload: 'Surcharge', failure: 'Échec', homeostasis: 'Homéostasie', accumulating: 'Accumulation', exhausted: 'Épuisé', externalized: 'Externalisé' }
             },
             de: {
-                title: 'Neuro-Sicherheits-Dashboard', subtitle: 'Biologische Telemetrie & KI-Nutzungs-Selbstsimulation', simTitle: 'Interaktion Simulieren',
+                title: 'Neuro-Sicherheits-Dashboard', subtitle: 'KI-Nutzungs-Selbstsimulation', simTitle: 'Interaktion Simulieren',
                 lblTsf: 'Aufgabenwechsel-Frequenz', lblComplexity: 'Ausgabe-Komplexität (Tokens)',
                 preShort: 'Kurzantwort', preInfo: 'Infografik', preDoc: 'Vollständiges Dok.', preResearch: 'Tiefenforschung',
                 lblHour: 'Tageszeit', hourNote: 'Aktuelle Zeit in Ihrer Zeitzone.',
-                theoryH: 'Kognitive Theorie', theoryP: 'Das Gehirn hat ein Verarbeitungslimit (Tb) von ca. 60 Bit/s. KI überschreitet diesen Trichter oft (Tg), was die Prüf-Integrität schwächt. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Mehr lesen</a>',
-                usageH: 'Bedienung', usageP: 'Passen Sie Frequenz und Komplexität an, um die Auswirkungen zu sehen. Beobachten Sie, wie die Tageszeit die metabolische Belastung erhöht.',
+                theoryH: 'Kognitive Theorie', theoryP: 'Das Gehirn hat ein Limit von ~60 Bit/s. KI-Auditing erfordert die Auflösung von "Surprisal"—Unsicherheit, die diesen Trichter überschreitet. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Teil 5 lesen</a>',
+                usageH: 'Bedienung', usageP: 'Frequenz und Komplexität anpassen. Achten Sie auf die "Metabolische Sperre" in den Bernstein/Rot-Zonen.',
                 disclaimerH: 'Haftungsausschluss', disclaimerP: 'Pädagogischer Explainer auf Basis neurowissenschaftlicher Forschung. Kein klinisches Modell.',
                 clnLabel: 'Audit-Latenz', bitsLabel: 'Bit / Sekunde', limitLabel: 'Effektive Kapazität',
                 statusGreen: 'Status: Sicher', statusAmber: 'Status: Warnung', statusRed: 'Status: Kritisch', statusCritical: 'Status: Ausfall',
                 gaugeTsf: 'Wechselfrequenz (TSF)', gaugeMet: 'Metabolische Last (lpFC)', protocolTitle: 'Empfohlenes Protokoll',
-                footer: 'Neuro-Sicherheits-Audit-Framework | Biologische Drosselungssimulation', reset: 'Simulation zurücksetzen',
+                footer: 'Neuro-Sicherheits-Audit | Biologische Drosselungssimulation', reset: 'Simulation zurücksetzen',
                 dayH: 'Ein typischer Neuro-Souveräner Tag',
-                day1h: 'Analoges Schutzschild', day1p: '90 Min. ohne KI arbeiten. Schützt Ihr kreatives DMN-Netzwerk.',
-                day2h: 'Mensch-im-Kommando', day2p: 'Eigene Logik schreiben, bevor KI erweitert. Bleiben Sie der Architekt.',
-                day3h: 'Der 50/10 Reset', day3p: 'Alle 50 Min. KI folgen 10 Min. analoge Erholung. Vagus-Bremse manuell resetten.',
-                day4h: 'Kalibrierungs-Sandbox', day4p: 'Neue Tools in sicherer Umgebung testen, um Grenzen ohne Druck zu finden.',
-                day5h: 'Frequenz-Drosselung', day5p: 'Prompts reduzieren, wenn die Last steigt. Schützen Sie sich vor Fehlern.',
-                day6h: 'Benchmark-Check', day6p: '15 Min. ohne Hilfe Probleme lösen, um die eigene Intelligenz zu stärken.',
+                encyclopediaH: 'Strategische Sicherheitsprotokolle (A-F)',
+                protocolDetails: [
+                    { id: 'A', name: 'Kognitive Erholung', why: 'Vagus-Bremse resetten und lpFC-Glutamat abbauen.', how: '10 Min. analoge Pause alle 50-90 Min. 6 Atemzüge/Min. Kohärenz.' },
+                    { id: 'B', name: 'Mensch-im-Kommando', why: 'Eigenständigkeit wiederherstellen und soziale Schmerzsignale reduzieren.', how: 'Von passiver Annahme zur Adversarial Collaboration wechseln.' },
+                    { id: 'C', name: 'Slow AI Bewegung', why: 'Automatisierungs-Bias und "Abstempeln" von Fehlern verhindern.', how: 'Synthesis First: Eigene Logik schreiben, bevor KI erweitert.' },
+                    { id: 'D', name: 'Blind-Kalibrierung', why: 'DMN reaktivieren und prädiktive Atrophie verhindern.', how: 'Monatliche Audits wichtiger Aufgaben komplett ohne KI-Hilfe.' },
+                    { id: 'E', name: 'Deployment-Sandboxes', why: 'Ventral-Vagus-Sicherheit durch Wegfall von Leistungsdruck bewahren.', how: 'Sicherheitszonen zur Tool-Kalibrierung nutzen.' },
+                    { id: 'F', name: 'Prädiktives Training', why: 'Audit-Muskel scharf halten, um Halluzinationen zu erkennen.', how: '15 Min. Analog-Sprints ohne KI zu Beginn/Ende des Tages.' }
+                ],
+                dayContent: [
+                    { time: '09:00 AM', label: 'Protokoll F', title: 'Analog-Schutz', desc: '90 Min. ohne KI arbeiten, um das kreative DMN-Netzwerk zu schützen.' },
+                    { time: '10:30 AM', label: 'Protokoll B & C', title: 'Mensch-im-Kommando', desc: 'Zuerst Synthese. Strategie vor dem Informationstsunami definieren.' },
+                    { time: '11:30 AM', label: 'Protokoll A', title: '50/10 Reset', desc: '10 Min. analoge Pause. Herzfrequenz-Variabilität manuell resetten.' },
+                    { time: '02:00 PM', label: 'Protokoll E', title: 'Kalibrierungs-Sandbox', desc: 'Tools in sicherer Umgebung testen, um Grenzen ohne Druck zu finden.' },
+                    { time: '04:00 PM', label: 'Protokoll C', title: 'Frequenz-Drossel', desc: 'Prompts reduzieren, wenn die Last steigt. Fehler vermeiden.' },
+                    { time: '05:30 PM', label: 'Protokoll F', title: 'Benchmark-Check', desc: '15 Min. ungestützter Sprint am Ende zur Bestätigung der Souveränität.' }
+                ],
                 states: {
-                    green: { title: "Souveräner Zustand", desc: "Hohe prädiktive Integrität. Präfrontaler Kortex stabil." },
-                    amber: { title: "Metabolische Drosselung", desc: "Glutamat steigt an. Automatisierungs-Bias erkannt." },
-                    red: { title: "Jacksonianische Auflösung", desc: "Vagus-Bremse versagt. Rückzug auf reaktive Überlebensschaltkreise." },
-                    critical: { title: "Kognitives Outsourcing", desc: "Totaler menschlicher Ausfall. Maschine übernimmt." }
-                },
-                protocols: {
-                    green: { name: "Prädiktives Training", action1: "DMN-Anreicherung", action2: "15 Min. Analog-Sprint: Ohne KI lösen." },
-                    amber: { name: "Autonomer Reset", action1: "Vagusbremse resetten", action2: "50/10 Regel: 10 Min. analoge Erholung." },
-                    red: { name: "Systemischer Audit-Puffer", action1: "Zwangssperre", action2: "30 Min. Pause: Vagusbremse resetten." },
-                    critical: { name: "Mensch-im-Kommando Reset", action1: "Notfall-Reset", action2: "Wechsel zur unmittelbaren Autorität." }
+                    green: { title: "Souveräner Zustand", desc: "Hohe prädiktive Integrität. Präfrontaler Kortex in Homöostase." },
+                    amber: { title: "Metabolische Drosselung", desc: "Glutamat steigt. Automatisierungs-Bias erkannt." },
+                    red: { title: "Jacksonianische Auflösung", desc: "Vagus-Bremse versagt. Rückzug auf primitive Schaltkreise." },
+                    critical: { title: "Kognitives Outsourcing", desc: "Totaler Ausfall. Maschine übernimmt das Kommando." }
                 },
                 tags: { optimal: 'Optimal', stressed: 'Gestresst', overload: 'Überlastung', failure: 'Ausfall', homeostasis: 'Homöostase', accumulating: 'Anstauend', exhausted: 'Erschöpft', externalized: 'Externalisiert' }
             },
             es: {
-                title: 'Panel de Neuroseguridad', subtitle: 'Telemetría Biológica y Auto-Simulación de Uso de IA', simTitle: 'Simular Interacción',
+                title: 'Panel de Neuroseguridad', subtitle: 'Auto-Simulación de Uso de IA', simTitle: 'Simular Interacción',
                 lblTsf: 'Frecuencia de Cambio de Tareas', lblComplexity: 'Complejidad de Salida (Tokens)',
                 preShort: 'Respuesta Corta', preInfo: 'Infografía', preDoc: 'Documento Compl.', preResearch: 'Investigación Prof.',
                 lblHour: 'Hora del día', hourNote: 'Hora actual en su zona horaria.',
-                theoryH: 'Teoría Cognitiva', theoryP: 'El cerebro posee un límite (Tb) de ~60 bits/s. La IA opera a velocidades (Tg) que exceden este embudo, causando pérdida de integridad. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Leer más</a>',
-                usageH: 'Cómo usar', usageP: 'Ajuste la frecuencia y complejidad para ver el impacto. Observe cómo la hora del día aumenta la deuda metabólica.',
-                disclaimerH: 'Descargo de responsabilidad', disclaimerP: 'Herramienta educativa basada en investigación neurocognitiva. No es un modelo clínico.',
+                theoryH: 'Teoría Cognitiva', theoryP: 'El cerebro posee un límite consciente (Tb) de ~60 bits/s. Auditar IA implica resolver el "Surprisal"—incertidumbre que excede este embudo. <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="text-sky-400 underline ml-1">Leer Parte 5</a>',
+                usageH: 'Cómo usar', usageP: 'Ajuste frecuencia y complejidad. Observe el umbral de "Bloqueo Metabólico" en zonas Ámbar/Roja.',
+                disclaimerH: 'Aviso legal', disclaimerP: 'Herramienta educativa basada en investigación neurocognitiva. No es un modelo clínico.',
                 clnLabel: 'Latencia de Auditoría', bitsLabel: 'Bits / Segundo', limitLabel: 'Capacidad Efectiva',
                 statusGreen: 'Estado: Seguro', statusAmber: 'Estado: Advertencia', statusRed: 'Estado: Crítico', statusCritical: 'Estado: Fallo',
                 gaugeTsf: 'Frecuencia de Cambio (TSF)', gaugeMet: 'Carga Metabólica (lpFC)', protocolTitle: 'Protocolo Recomendado',
                 footer: 'Marco de Auditoría Neurocognitiva | Simulación de Estrangulamiento Biológico', reset: 'Reiniciar Simulación',
                 dayH: 'Un Día Neuro-Soberano Típico',
-                day1h: 'Escudo Analógico', day1p: '90m de trabajo sin IA al inicio. Protege su DMN cuando es más creativo.',
-                day2h: 'Humano-al-Mando', day2p: 'Redacte su lógica antes de pedir expansión a la IA. Sea el arquitecto soberano.',
-                day3h: 'El Reinicio 50/10', day3p: 'Cada 50m de IA, mande 10m de recuperación analógica. Reinicie su freno vagal.',
-                day4h: 'Sandbox de Calibración', day4p: 'Use herramientas nuevas en entorno seguro para hallar límites sin presión.',
-                day5h: 'Cap de Velocidad', day5p: 'Reduzca frecuencia al final del día. Evite errores por fatiga metabólica.',
-                day6h: 'Control de Referencia', day6p: 'Cierre con 15m de resolución sin IA para mantener su agudeza mental.',
+                encyclopediaH: 'Protocolos de Seguridad Estratégica (A-F)',
+                protocolDetails: [
+                    { id: 'A', name: 'Bloques de Recuperación', why: 'Reiniciar el freno vagal y limpiar residuos de glutamato.', how: 'Brecha analógica de 10m cada 50-90m. Coherencia respiratoria.' },
+                    { id: 'B', name: 'Humano-al-Mando', why: 'Restaurar la agencia y reducir dolor social (Efecto Espejo).', how: 'Pasar de recepción pasiva a Colaboración Adversaria; intuición sobre datos.' },
+                    { id: 'C', name: 'Movimiento Slow AI', why: 'Prevenir sesgo de automatización y errores por fatiga.', how: 'Regla de Síntesis Primero: redactar antes de la expansión IA.' },
+                    { id: 'D', name: 'Calibración a Ciegas', why: 'Reactivar el DMN y prevenir la atrofia predictiva.', how: 'Auditorías mensuales sin ayuda de IA para tareas de alto impacto.' },
+                    { id: 'E', name: 'Sandboxes de Despliegue', why: 'Mantener seguridad Ventral Vagal eliminando presión de rendimiento.', how: 'Zonas seguras para calibrar herramientas; valoración humana cualitativa.' },
+                    { id: 'F', name: 'Primado Predictivo', why: 'Mantener afilado el músculo de auditoría crítica.', how: 'Sprints Analógicos de 15m sin IA al inicio y final del día.' }
+                ],
+                dayContent: [
+                    { time: '09:00 AM', label: 'Protocolo F', title: 'Escudo Analógico', desc: 'Resolver sin IA durante 90m para proteger el DMN creativo.' },
+                    { time: '10:30 AM', label: 'Protocolo B & C', title: 'Humano-al-Mando', desc: 'Síntesis primero. Definir estrategia antes del tsunami de información.' },
+                    { time: '11:30 AM', label: 'Protocolo A', title: 'Reinicio 50/10', desc: 'Brecha analógica de 10m. Reiniciar variabilidad cardíaca.' },
+                    { time: '02:00 PM', label: 'Protocolo E', title: 'Sandbox de Calibración', desc: 'Probar herramientas en puerto seguro sin amenaza de estatus.' },
+                    { time: '04:00 PM', label: 'Protocolo C', title: 'Cap de Velocidad', desc: 'Reducir frecuencia cuando el glutamato sube. Prevenir errores.' },
+                    { time: '05:30 PM', label: 'Protocolo F', title: 'Verificación', desc: 'Sprint final de 15m sin IA para probar inteligencia soberana.' }
+                ],
                 states: {
-                    green: { title: "Estado Soberano", desc: "Alta integridad predictiva. El córtex prefrontal está estable." },
+                    green: { title: "Estado Soberano", desc: "Alta integridad predictiva. El córtex prefrontal en homeostasis." },
                     amber: { title: "Estrangulamiento Metabólico", desc: "Aumento de glutamato. Sesgo de automatización detectado." },
                     red: { title: "Disolución Jacksoniana", desc: "Falla del freno vagal. Regresión a circuitos reactivos." },
                     critical: { title: "Externalización Cognitiva", desc: "Falla Humana Total. La máquina dirige el proceso." }
-                },
-                protocols: {
-                    green: { name: "Práctica de Integridad", action1: "Enriquecimiento DMN Activo", action2: "15 min. Sprint Analógico: Sin IA." },
-                    amber: { name: "Reinicio Autonómico", action1: "Reinicio Freno Vagal", action2: "Regla 50/10: 10 min. de recuperación." },
-                    red: { name: "Búfer de Auditoría", action1: "Bloqueo Obligatorio", action2: "30 min. de Bloqueo: Reiniciar freno vagal." },
-                    critical: { name: "Pivot Humano-al-Mando", action1: "Reinicio de Emergencia", action2: "Autoridad absoluta no mediada." }
                 },
                 tags: { optimal: 'Óptimo', stressed: 'Estresado', overload: 'Sobrecarga', failure: 'Fallo', homeostasis: 'Homeostasis', accumulating: 'Acumulando', exhausted: 'Agotado', externalized: 'Externalizado' }
             }
@@ -416,7 +391,7 @@
             document.getElementById('dynamic-limit-val').innerText = effectiveLimit;
 
             // UI Refresh
-            document.getElementById('txt-title').innerHTML = t.title + ` <span class="text-slate-500 font-light italic text-xl">v1.1.0</span>`;
+            document.getElementById('txt-title').innerHTML = t.title + ` <span class="text-slate-500 font-light italic text-xl">v1.2.0</span>`;
             document.getElementById('txt-subtitle').innerText = t.subtitle;
             document.getElementById('txt-theory-h').innerText = t.theoryH; 
             document.getElementById('txt-theory-p').innerHTML = t.theoryP;
@@ -446,14 +421,33 @@
             document.getElementById('reset-btn').innerText = t.reset; 
             document.getElementById('txt-footer').innerText = t.footer;
 
-            // Typical Day Text
+            // Detail Block Rendering
+            document.getElementById('txt-encyclopedia-h').innerText = t.encyclopediaH;
+            const detailGrid = document.getElementById('encyclopedia-grid');
+            detailGrid.innerHTML = t.protocolDetails.map(p => `
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center font-black text-sky-400 text-xs">${p.id}</div>
+                        <h3 class="font-bold text-sm text-slate-200 uppercase tracking-tight">${p.name}</h3>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed"><span class="text-sky-500/70 font-bold uppercase">Why:</span> ${p.why}</p>
+                    <p class="text-[11px] text-slate-300 leading-relaxed"><span class="text-emerald-500/70 font-bold uppercase">How:</span> ${p.how}</p>
+                </div>
+            `).join('');
+
+            // Typical Day Rendering
             document.getElementById('txt-day-h').innerText = t.dayH;
-            document.getElementById('txt-day-1-h').innerText = t.day1h; document.getElementById('txt-day-1-p').innerText = t.day1p;
-            document.getElementById('txt-day-2-h').innerText = t.day2h; document.getElementById('txt-day-2-p').innerText = t.day2p;
-            document.getElementById('txt-day-3-h').innerText = t.day3h; document.getElementById('txt-day-3-p').innerText = t.day3p;
-            document.getElementById('txt-day-4-h').innerText = t.day4h; document.getElementById('txt-day-4-p').innerText = t.day4p;
-            document.getElementById('txt-day-5-h').innerText = t.day5h; document.getElementById('txt-day-5-p').innerText = t.day5p;
-            document.getElementById('txt-day-6-h').innerText = t.day6h; document.getElementById('txt-day-6-p').innerText = t.day6p;
+            const dayRoadmap = document.getElementById('day-roadmap');
+            dayRoadmap.innerHTML = t.dayContent.map(d => `
+                <div class="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sky-400 font-bold text-xs uppercase">${d.time}</span>
+                        <span class="px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-500 text-[9px] font-bold uppercase">${d.label}</span>
+                    </div>
+                    <h3 class="font-bold text-sm text-slate-200 uppercase tracking-tight">${d.title}</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">${d.desc}</p>
+                </div>
+            `).join('');
 
             const cln = Math.round(3600 / tsf); document.getElementById('cln-val').innerText = `${cln}s`;
             const bps = ((tokens * 12) / cln).toFixed(1); document.getElementById('bits-val').innerText = bps;
@@ -497,9 +491,18 @@
             tsfTag.innerText = t.tags[stateKey === 'green' ? 'optimal' : stateKey === 'amber' ? 'stressed' : stateKey === 'red' ? 'overload' : 'failure'];
             metTag.innerText = t.tags[stateKey === 'green' ? 'homeostasis' : stateKey === 'amber' ? 'accumulating' : stateKey === 'red' ? 'exhausted' : 'externalized'];
 
-            const p = t.protocols[stateKey];
+            const protocolMap = { green: 'F', amber: 'A', red: 'C', critical: 'B' };
+            const pId = protocolMap[stateKey];
+            const p = t.protocolDetails.find(item => item.id === pId);
+
             document.getElementById('protocol-panel').style.borderColor = color;
-            document.getElementById('protocol-content').innerHTML = `<p class="font-black uppercase tracking-wider" style="color: ${color}">${p.name}</p><div class="h-px bg-white/5 my-2"></div><ul class="space-y-2"><li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full" style="background:${color}"></div>${p.action1}</li><li class="flex items-center gap-2 font-medium italic text-slate-400 leading-tight">${p.action2}</li></ul>`;
+            document.getElementById('protocol-content').innerHTML = `
+                <p class="font-black uppercase tracking-wider" style="color: ${color}">Protocol ${p.id}: ${p.name}</p>
+                <div class="h-px bg-white/5 my-2"></div>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full" style="background:${color}"></div>${p.how}</li>
+                </ul>
+            `;
             document.getElementById('funnel-neck').style.backgroundColor = color;
             document.getElementById('funnel-neck').style.boxShadow = `0 0 20px ${color}88`;
             document.getElementById('cln-val').style.color = color; 
