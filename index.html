@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro-computational Dashboard v2.9</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .funnel-container { position: relative; width: 240px; height: 320px; }
+        .funnel-top { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 130px; 
+            background: rgba(30, 41, 59, 0.2); border: 1px solid rgba(255, 255, 255, 0.05);
+            clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 35% 100%);
+        }
+        .funnel-neck {
+            position: absolute; top: 130px; left: 35%; width: 30%; height: 15px;
+            background: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+            z-index: 30; transition: all 0.5s ease; border-radius: 2px;
+        }
+        .funnel-bottom {
+            position: absolute; top: 145px; left: 35%; width: 30%; height: 120px;
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0.3), transparent);
+            filter: blur(8px); transition: width 0.5s ease, left 0.5s ease;
+        }
+
+        .particle {
+            position: absolute; background: #38bdf8; border-radius: 50%;
+            pointer-events: none; opacity: 0; width: 4px; height: 4px;
+            z-index: 10;
+        }
+
+        @keyframes flowPass {
+            0% { transform: translate(var(--startX), -20px); opacity: 0; }
+            10% { opacity: 1; }
+            45% { transform: translate(var(--midX), 130px); }
+            50% { transform: translate(var(--midX), 140px) scale(0.7); }
+            100% { transform: translate(var(--midX), 300px); opacity: 0; }
+        }
+
+        /* Improved Realistic Bounce Angle */
+        @keyframes flowBounce {
+            0% { transform: translate(var(--startX), -20px); opacity: 0; }
+            10% { opacity: 1; }
+            40% { transform: translate(var(--midX), 130px); background: #38bdf8; } /* Impact */
+            55% { transform: translate(var(--bounceX), 60px); background: var(--stateColor); } /* Upward Ricochet */
+            100% { transform: translate(var(--erraticX), -40px); opacity: 0; background: var(--stateColor); } /* Out of system */
+        }
+
+        .gauge-bar { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease; }
+        .flag-btn { opacity: 0.4; transition: all 0.2s; cursor: pointer; filter: grayscale(100%); }
+        .flag-btn.active { opacity: 1; transform: scale(1.2); filter: grayscale(0%); }
+        
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #1e293b; border-radius: 3px; }
+        input[type=range]::-webkit-slider-thumb {
+            height: 18px; width: 18px; border-radius: 50%; background: #38bdf8;
+            cursor: pointer; -webkit-appearance: none; margin-top: -6px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h1 id="txt-title" class="text-3xl font-black tracking-tight">Neuro-Safety Dashboard <span class="text-slate-500 font-light italic text-xl">v2.9</span></h1>
+            <p id="txt-subtitle" class="text-slate-400 font-medium">Biological Telemetry & AI Usage Self-Simulation</p>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <div class="flex gap-3 bg-white/5 p-2 rounded-xl border border-white/10">
+                <button onclick="setLang('en')" class="flag-btn active text-xl" id="flag-en" title="English">🇺🇸</button>
+                <button onclick="setLang('fr')" class="flag-btn text-xl" id="flag-fr" title="Français">🇫🇷</button>
+                <button onclick="setLang('de')" class="flag-btn text-xl" id="flag-de" title="Deutsch">🇩🇪</button>
+                <button onclick="setLang('es')" class="flag-btn text-xl" id="flag-es" title="Español">🇪🇸</button>
+            </div>
+            <div id="status-badge" class="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border transition-all duration-500">
+                Status: Safe
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Controls -->
+        <section class="lg:col-span-3 space-y-6">
+            <div class="glass p-6 rounded-2xl">
+                <h2 id="txt-sim-title" class="text-sm font-semibold text-slate-400 mb-4 uppercase tracking-wider">Simulate Interaction</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label id="lbl-tsf" class="block text-sm mb-2 font-medium">Task Switching Frequency <span id="val-tsf" class="float-right font-bold text-sky-400">15 / hr</span></label>
+                        <input type="range" id="input-tsf" min="1" max="120" value="15" class="w-full">
+                        <div class="flex justify-between text-[9px] text-slate-500 mt-1 uppercase font-bold">
+                            <span id="tsf-low">Sovereign</span>
+                            <span id="tsf-mid">Risk</span>
+                            <span id="tsf-high">Collapse</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label id="lbl-complexity" class="block text-sm mb-2 font-medium">Output Complexity <span id="val-tokens" class="float-right font-bold text-sky-400">300</span></label>
+                        <input type="range" id="input-tokens" min="50" max="3000" step="50" value="300" class="w-full">
+                        
+                        <div class="grid grid-cols-2 gap-2 mt-3">
+                            <button onclick="setTokens(300)" id="btn-pre-short" class="text-[10px] bg-white/5 hover:bg-white/10 p-2 rounded border border-white/5 transition-all font-bold">Short Answer</button>
+                            <button onclick="setTokens(800)" id="btn-pre-info" class="text-[10px] bg-white/5 hover:bg-white/10 p-2 rounded border border-white/5 transition-all font-bold">Infographic</button>
+                            <button onclick="setTokens(1500)" id="btn-pre-doc" class="text-[10px] bg-white/5 hover:bg-white/10 p-2 rounded border border-white/5 transition-all font-bold">Full Document</button>
+                            <button onclick="setTokens(3000)" id="btn-pre-research" class="text-[10px] bg-white/5 hover:bg-white/10 p-2 rounded border border-white/5 transition-all font-bold">Deep Research</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label id="lbl-hour" class="block text-sm mb-2 font-medium">Time of the day <span id="val-hour" class="float-right font-bold text-sky-400">09:00</span></label>
+                        <input type="range" id="input-hour" min="8" max="22" value="9" class="w-full">
+                        <p id="txt-hour-note" class="text-[10px] text-slate-500 mt-2 italic font-medium">Current time in your local time zone.</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/5">
+                        <button id="reset-btn" class="w-full py-2.5 bg-sky-500/10 hover:bg-sky-500/20 rounded-xl text-xs font-black transition-all text-sky-400 uppercase tracking-widest">Reset Simulation</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-6 rounded-2xl bg-sky-500/5 border-sky-500/20 border">
+                <h2 id="txt-theory-title" class="text-sm font-semibold text-sky-400 mb-2 uppercase tracking-wider">Cognitive Theory</h2>
+                <p id="txt-theory-desc" class="text-xs text-slate-400 mb-4 leading-relaxed">The mismatch between Biological Time (Tb) and Algorithmic Time (Tg).</p>
+                <a href="https://engineeringtrust.substack.com/p/the-architecture-of-cognitive-governance" target="_blank" class="block text-center py-2.5 bg-sky-500 hover:bg-sky-400 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-sky-500/20">
+                    <span id="txt-theory-link">Read Theory</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Center: Visualizer -->
+        <section class="lg:col-span-6 space-y-6">
+            <div class="glass p-8 rounded-3xl relative overflow-hidden h-[450px] flex flex-col items-center justify-center border-white/5 shadow-2xl">
+                <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                
+                <h2 id="txt-funnel-label" class="absolute top-6 left-8 text-xs font-black text-slate-500 uppercase tracking-widest">The 60-Bit Biological Funnel</h2>
+                
+                <!-- Dynamic Limit Label next to gate -->
+                <div id="dynamic-limit-box" class="absolute top-[125px] right-4 md:right-10 flex flex-col items-end pointer-events-none">
+                    <div id="txt-limit-lbl" class="text-[9px] font-black text-slate-500 uppercase tracking-widest">Effective Capacity</div>
+                    <div id="dynamic-limit-val" class="text-xl font-black text-sky-400">60.0</div>
+                    <div class="text-[8px] font-bold text-slate-600 uppercase">Bits / Sec</div>
+                </div>
+
+                <div class="funnel-container">
+                    <div class="funnel-top"></div>
+                    <div id="data-particles-container" class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none"></div>
+                    <div id="funnel-neck" class="funnel-neck"></div>
+                    <div id="output-stream" class="funnel-bottom"></div>
+                </div>
+
+                <div class="absolute bottom-10 w-full px-16 flex justify-between items-end">
+                    <div class="text-center">
+                        <div id="cln-val" class="text-3xl font-black transition-colors">240s</div>
+                        <div id="txt-cln-lbl" class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Audit Latency</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="bits-val" class="text-3xl font-black transition-colors">18.7</div>
+                        <div id="txt-bits-lbl" class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Bits / Second</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-6 rounded-2xl border-l-8 transition-all duration-500 shadow-xl" id="risk-banner">
+                <h3 id="risk-title" class="font-black text-xl mb-1 uppercase tracking-tight">Sovereign State</h3>
+                <p id="risk-desc" class="text-sm text-slate-400 leading-relaxed font-medium">The prefrontal cortex is operating with full predictive integrity.</p>
+            </div>
+        </section>
+
+        <!-- Right: Gauges & Protocols -->
+        <section class="lg:col-span-3 space-y-6">
+            <div class="glass p-6 rounded-2xl shadow-lg border-white/5">
+                <h2 id="lbl-gauge-tsf" class="text-[10px] font-black text-slate-500 mb-4 uppercase tracking-[0.2em]">Task Switching Frequency</h2>
+                <div class="relative">
+                    <div class="flex mb-3 items-center justify-between">
+                        <div><span id="tsf-status" class="text-[9px] font-black py-1 px-3 uppercase rounded-full tracking-tighter">Optimal</span></div>
+                        <div class="text-right"><span id="tsf-percent" class="text-xs font-bold text-sky-400">12%</span></div>
+                    </div>
+                    <div class="overflow-hidden h-3 mb-2 rounded-full bg-slate-800/50 p-0.5">
+                        <div id="tsf-bar" style="width:12%" class="gauge-bar h-full rounded-full bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-6 rounded-2xl shadow-lg border-white/5">
+                <h2 id="lbl-gauge-met" class="text-[10px] font-black text-slate-500 mb-4 uppercase tracking-[0.2em]">Metabolic Load (lpFC)</h2>
+                <div class="relative">
+                    <div class="flex mb-3 items-center justify-between">
+                        <div><span id="metabolic-status" class="text-[9px] font-black py-1 px-3 uppercase rounded-full tracking-tighter">Homeostasis</span></div>
+                        <div class="text-right"><span id="metabolic-percent" class="text-xs font-bold text-sky-400">5%</span></div>
+                    </div>
+                    <div class="overflow-hidden h-3 mb-2 rounded-full bg-slate-800/50 p-0.5">
+                        <div id="metabolic-bar" style="width:5%" class="gauge-bar h-full rounded-full bg-sky-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="protocol-panel" class="glass p-6 rounded-2xl border-l-8 border-sky-500 transition-all duration-300 shadow-xl bg-sky-500/5">
+                <h2 id="txt-protocol-title" class="text-xs font-black text-slate-400 mb-4 uppercase tracking-widest">Recommended Protocol</h2>
+                <div id="protocol-content" class="text-xs space-y-3 leading-relaxed text-slate-300">
+                    <!-- Dynamic -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-12 mb-8 text-center text-slate-600 text-[10px] font-bold uppercase tracking-[0.3em] opacity-50">
+        <p id="txt-footer">Neuro-computational Audit Framework | Biological Throttling Simulation</p>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                title: 'Neuro-Safety Dashboard',
+                subtitle: 'Biological Telemetry & AI Usage Self-Simulation',
+                simTitle: 'Simulate Interaction',
+                lblTsf: 'Task Switching Frequency',
+                tsfLow: 'Sovereign',
+                tsfMid: 'Risk',
+                tsfHigh: 'Collapse',
+                lblComplexity: 'Output Complexity (Tokens)',
+                preShort: 'Short Answer',
+                preInfo: 'Infographic',
+                preDoc: 'Full Document',
+                preResearch: 'Deep Research',
+                lblHour: 'Time of the day',
+                hourNote: 'Current time in your local time zone.',
+                theoryTitle: 'Cognitive Theory',
+                theoryDesc: 'The mismatch between Biological Time (Tb) and Algorithmic Time (Tg).',
+                theoryLink: 'Read Theory',
+                funnelLabel: 'The 60-Bit Biological Funnel',
+                clnLabel: 'Audit Latency',
+                bitsLabel: 'Bits / Second',
+                limitLabel: 'Effective Capacity',
+                statusGreen: 'Status: Safe',
+                statusAmber: 'Status: Warning',
+                statusRed: 'Status: Critical',
+                statusCritical: 'Status: Failure',
+                gaugeTsf: 'Task Switching Frequency',
+                gaugeMet: 'Metabolic Load (lpFC)',
+                protocolTitle: 'Recommended Protocol',
+                footer: 'Neuro-computational Audit Framework | Biological Throttling Simulation',
+                reset: 'Reset Simulation',
+                states: {
+                    green: { title: "Sovereign State", desc: "Predictive integrity is high. Prefrontal cortex is at baseline." },
+                    amber: { title: "Metabolic Throttling", desc: "Glutamate levels rising. Onset of Automation Bias detected." },
+                    red: { title: "Jacksonian Dissolution", desc: "Vagal Brake failed. Regression to reactive survival circuits." },
+                    critical: { title: "Cognitive Outsourcing", desc: "Total Human Outage. Machine is driving the vessel." }
+                },
+                protocols: {
+                    green: { name: "Predictive Integrity Drill", action1: "Active DMN Enrichment", action2: "15m Analog Sprint: Solve without AI." },
+                    amber: { name: "Autonomic Reset", action1: "Vagal Brake Reset", action2: "50/10 rule: 10m analog recovery." },
+                    red: { name: "Systemic Audit Buffer", action1: "Mandatory System Lockout", action2: "30m Lockout: Reset Vagal Brake." },
+                    critical: { name: "Human-in-Command Pivot", action1: "Emergency Reset", action2: "Shift to unmediated authority." }
+                },
+                tags: { optimal: 'Optimal', stressed: 'Stressed', overload: 'Overload', failure: 'Failure', homeostasis: 'Homeostasis', accumulating: 'Accumulating', exhausted: 'Exhausted', externalized: 'Externalized' }
+            },
+            fr: {
+                title: 'Tableau de Bord Neuro-Sécurité',
+                subtitle: 'Télémétrie Biologique & Auto-Simulation d\'Usage IA',
+                simTitle: 'Simuler l\'Interaction',
+                lblTsf: 'Fréquence de Commutation de Tâches',
+                tsfLow: 'Souverain',
+                tsfMid: 'Risque',
+                tsfHigh: 'Effondrement',
+                lblComplexity: 'Complexité de Sortie (Tokens)',
+                preShort: 'Réponse Courte',
+                preInfo: 'Infographie',
+                preDoc: 'Document Complet',
+                preResearch: 'Recherche Profonde',
+                lblHour: 'Heure de la journée',
+                hourNote: 'Heure actuelle dans votre fuseau horaire.',
+                theoryTitle: 'Théorie Cognitive',
+                theoryDesc: 'Le décalage entre le Temps Biologique (Tb) et le Temps Algorithmique (Tg).',
+                theoryLink: 'Lire la Théorie',
+                funnelLabel: 'Entonnoir Biologique de 60 Bits',
+                clnLabel: 'Latence d\'Audit',
+                bitsLabel: 'Bits / Seconde',
+                limitLabel: 'Capacité Effective',
+                statusGreen: 'Statut : Sûr',
+                statusAmber: 'Statut : Attention',
+                statusRed: 'Statut : Critique',
+                statusCritical: 'Statut : Échec',
+                gaugeTsf: 'Fréquence de Commutation de Tâches (TSF)',
+                gaugeMet: 'Charge Métabolique (lpFC)',
+                protocolTitle: 'Protocole Recommandé',
+                footer: 'Cadre d\'Audit Neuro-computationnel | Simulation d\'Étranglement',
+                reset: 'Réinitialiser Simulation',
+                states: {
+                    green: { title: "État Souverain", desc: "L'intégrité prédictive est élevée. Cortex préfrontal au repos." },
+                    amber: { title: "Étranglement Métabolique", desc: "Hausse du glutamate. Début du biais d'automatisation." },
+                    red: { title: "Dissolution Jacksonienne", desc: "Le frein vagal a lâché. Régression vers les circuits de survie." },
+                    critical: { title: "Externalisation Cognitive", desc: "Échec Humain Total. La machine pilote le vaisseau." }
+                },
+                protocols: {
+                    green: { name: "Sprint d'Intégrité Prédictive", action1: "Enrichissement DMN Actif", action2: "15m Sprint Analogique : Résoudre sans IA." },
+                    amber: { name: "Réinitialisation Autonomique", action1: "Reset du Frein Vagal", action2: "Règle 50/10 : 10m de récupération." },
+                    red: { name: "Tampon d'Audit Systémique", action1: "Verrouillage Système Obligatoire", action2: "30m d'Arrêt : Réinitialiser le matériel." },
+                    critical: { name: "Pivot Humain-en-Commande", action1: "Reset d'Urgence", action2: "Passer à l'autorité souveraine." }
+                },
+                tags: { optimal: 'Optimal', stressed: 'Stressé', overload: 'Surcharge', failure: 'Échec', homeostasis: 'Homéostasie', accumulating: 'Accumulation', exhausted: 'Épuisé', externalized: 'Externalisé' }
+            },
+            de: {
+                title: 'Neuro-Sicherheits-Dashboard',
+                subtitle: 'Biologische Telemetrie & KI-Selbstsimulation',
+                simTitle: 'Interaktion Simulieren',
+                lblTsf: 'Aufgabenwechsel-Frequenz',
+                tsfLow: 'Souverän',
+                tsfMid: 'Risiko',
+                tsfHigh: 'Kollaps',
+                lblComplexity: 'Ausgabe-Komplexität (Tokens)',
+                preShort: 'Kurzantwort',
+                preInfo: 'Infografik',
+                preDoc: 'Vollständiges Dok.',
+                preResearch: 'Tiefenforschung',
+                lblHour: 'Tageszeit',
+                hourNote: 'Aktuelle Zeit in Ihrer Zeitzone.',
+                theoryTitle: 'Kognitive Theorie',
+                theoryDesc: 'Mismatch zwischen biologischer (Tb) und algorithmischer Zeit (Tg).',
+                theoryLink: 'Theorie Lesen',
+                funnelLabel: 'Der biologische 60-Bit-Trichter',
+                clnLabel: 'Audit-Latenz',
+                bitsLabel: 'Bits / Sekunde',
+                limitLabel: 'Effektive Kapazität',
+                statusGreen: 'Status: Sicher',
+                statusAmber: 'Status: Warnung',
+                statusRed: 'Status: Kritisch',
+                statusCritical: 'Status: Ausfall',
+                gaugeTsf: 'Aufgabenwechsel-Frequenz (TSF)',
+                gaugeMet: 'Stoffwechselbelastung (lpFC)',
+                protocolTitle: 'Empfohlenes Protokoll',
+                footer: 'Neuro-Sicherheits-Audit | Biologische Drosselungssimulation',
+                reset: 'Simulation Zurücksetzen',
+                states: {
+                    green: { title: "Souveräner Zustand", desc: "Hohe prädiktive Integrität. Präfrontaler Kortex ist stabil." },
+                    amber: { title: "Stoffwechseldrosselung", desc: "Anstieg von Glutamat. Automatisierungsvoreingenommenheit erkannt." },
+                    red: { title: "Jacksonianische Auflösung", desc: "Vagusbremse versagt. Rückzug auf primitive Überlebensschaltkreise." },
+                    critical: { title: "Kognitives Outsourcing", desc: "Totaler menschlicher Ausfall. Maschine übernimmt die Führung." }
+                },
+                protocols: {
+                    green: { name: "Prädiktives Integritätstraining", action1: "DMN-Anreicherung", action2: "15 Min. Analog-Sprint: Ohne KI lösen." },
+                    amber: { name: "Autonomer Reset", action1: "Vagusbremse zurücksetzen", action2: "50/10 Regel: 10 Min. analoge Erholung." },
+                    red: { name: "Systemischer Audit-Puffer", action1: "Zwangssperre", action2: "30 Min. Sperre: Vagusbremse resetten." },
+                    critical: { name: "Mensch-im-Kommando Reset", action1: "Notfall-Reset", action2: "Wechsel zur unmittelbaren Autorität." }
+                },
+                tags: { optimal: 'Optimal', stressed: 'Gestresst', overload: 'Überlastung', failure: 'Ausfall', homeostasis: 'Homöostase', accumulating: 'Anstauend', exhausted: 'Erschöpft', externalized: 'Externalisiert' }
+            },
+            es: {
+                title: 'Panel de Neuroseguridad',
+                subtitle: 'Telemetría Biológica y Auto-Simulación de Uso IA',
+                simTitle: 'Simular Interacción',
+                lblTsf: 'Frecuencia de Cambio de Tareas',
+                tsfLow: 'Soberano',
+                tsfMid: 'Riesgo',
+                tsfHigh: 'Colapso',
+                lblComplexity: 'Complejidad de Salida (Tokens)',
+                preShort: 'Respuesta Corta',
+                preInfo: 'Infografía',
+                preDoc: 'Documento Complet.',
+                preResearch: 'Investigación Prof.',
+                lblHour: 'Hora del día',
+                hourNote: 'Hora actual en su zona horaria.',
+                theoryTitle: 'Teoría Cognitiva',
+                theoryDesc: 'El desajuste entre el Tiempo Biológico (Tb) y el Algorítmico (Tg).',
+                theoryLink: 'Leer Teoría',
+                funnelLabel: 'Embudo Biológico de 60 Bits',
+                clnLabel: 'Latencia de Auditoría',
+                bitsLabel: 'Bits / Segundo',
+                limitLabel: 'Capacidad Efectiva',
+                statusGreen: 'Estado: Seguro',
+                statusAmber: 'Estado: Advertencia',
+                statusRed: 'Estado: Crítico',
+                statusCritical: 'Estado: Fallo',
+                gaugeTsf: 'Frecuencia de Cambio de Tareas (TSF)',
+                gaugeMet: 'Carga Metabólica (lpFC)',
+                protocolTitle: 'Protocolo Recomendado',
+                footer: 'Marco de Auditoría Neurocognitiva | Simulación de Estrangulamiento',
+                reset: 'Reiniciar Simulación',
+                states: {
+                    green: { title: "Estado Soberano", desc: "Integridad predictiva alta. El córtex prefrontal está estable." },
+                    amber: { title: "Estrangulamiento Metabólico", desc: "Aumento de glutamato. Sesgo de automatización detectado." },
+                    red: { title: "Disolución Jacksoniana", desc: "Falla del freno vagal. Regresión a circuitos de supervivencia." },
+                    critical: { title: "Externalización Cognitiva", desc: "Falla Humana Total. La máquina dirige el proceso." }
+                },
+                protocols: {
+                    green: { name: "Práctica de Integridad Predictiva", action1: "Enriquecimiento DMN", action2: "15m Sprint Analógico: Resolver sin IA." },
+                    amber: { name: "Reinicio Autonómico", action1: "Reinicio del Freno Vagal", action2: "Regla 50/10: 10 min. de recuperación." },
+                    red: { name: "Búfer de Auditoría Sistémica", action1: "Bloqueo Obligatorio", action2: "30m de Bloqueo: Reiniciar freno vagal." },
+                    critical: { name: "Pivot Humano-al-Mando", action1: "Reinicio de Emergencia", action2: "Autoridad absoluta no mediada." }
+                },
+                tags: { optimal: 'Óptimo', stressed: 'Estresado', overload: 'Sobrecarga', failure: 'Fallo', homeostasis: 'Homeostasis', accumulating: 'Acumulando', exhausted: 'Agotado', externalized: 'Externalizado' }
+            }
+        };
+
+        let currentLang = 'en';
+        const inputs = {
+            tsf: document.getElementById('input-tsf'),
+            tokens: document.getElementById('input-tokens'),
+            hour: document.getElementById('input-hour')
+        };
+        
+        function setTokens(val) { inputs.tokens.value = val; updateSimulation(); }
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`flag-${lang}`).classList.add('active');
+            updateSimulation();
+        }
+
+        function spawnParticle(tsf, tokens, stateKey, color) {
+            const container = document.getElementById('data-particles-container');
+            const numParticles = Math.max(1, Math.floor(tokens / 400));
+            
+            for (let i = 0; i < numParticles; i++) {
+                const p = document.createElement('div');
+                const speed = Math.max(0.6, 4 - (tsf / 25));
+                const bounceChance = stateKey === 'red' ? 0.75 : (stateKey === 'amber' ? 0.35 : 0.05);
+                const isBouncing = Math.random() < bounceChance;
+
+                p.className = 'particle';
+                p.style.setProperty('--speed', speed + 's');
+                p.style.setProperty('--startX', (Math.random() * 240) + 'px');
+                p.style.setProperty('--midX', (84 + Math.random() * 72) + 'px');
+                
+                if (isBouncing) {
+                    // Upward and outward bounce logic
+                    p.style.setProperty('--bounceX', (Math.random() < 0.5 ? -40 : 280) + 'px');
+                    p.style.setProperty('--erraticX', (Math.random() * 340 - 50) + 'px');
+                    p.style.setProperty('--stateColor', color);
+                    p.style.animation = `flowBounce ${speed}s linear infinite`;
+                } else {
+                    p.style.animation = `flowPass ${speed}s linear infinite`;
+                }
+                
+                container.appendChild(p);
+                setTimeout(() => p.remove(), speed * 1000);
+            }
+        }
+
+        let particleTimer;
+        function updateSimulation() {
+            const t = translations[currentLang];
+            const tsf = parseInt(inputs.tsf.value);
+            const tokens = parseInt(inputs.tokens.value);
+            const hour = parseInt(inputs.hour.value);
+
+            // Calculations
+            const intensityFactor = (tsf / 40) * 45; 
+            const complexityFactor = (tokens / 3000) * 35;
+            const circadianFactor = (hour - 8) * 5; 
+            const load = Math.min(100, Math.round(intensityFactor + complexityFactor + circadianFactor));
+
+            // Theory: The Effective 60-bit limit drops with metabolic debt (load)
+            // 60 bits at morning/rest, drops as glutamate (load) increases
+            const effectiveLimit = Math.max(15, 60 * (1 - (load / 220))).toFixed(1);
+            document.getElementById('dynamic-limit-val').innerText = effectiveLimit;
+
+            // Labels Update
+            document.getElementById('txt-title').innerHTML = t.title + ` <span class="text-slate-500 font-light italic text-xl">v2.9</span>`;
+            document.getElementById('txt-subtitle').innerText = t.subtitle;
+            document.getElementById('txt-sim-title').innerText = t.simTitle;
+            document.getElementById('lbl-tsf').innerHTML = `${t.lblTsf} <span class="float-right font-bold text-sky-400">${tsf} / hr</span>`;
+            document.getElementById('tsf-low').innerText = t.tsfLow;
+            document.getElementById('tsf-mid').innerText = t.tsfMid;
+            document.getElementById('tsf-high').innerText = t.tsfHigh;
+            document.getElementById('lbl-complexity').innerHTML = `${t.lblComplexity} <span class="float-right font-bold text-sky-400">${tokens}</span>`;
+            document.getElementById('btn-pre-short').innerText = t.preShort;
+            document.getElementById('btn-pre-info').innerText = t.preInfo;
+            document.getElementById('btn-pre-doc').innerText = t.preDoc;
+            document.getElementById('btn-pre-research').innerText = t.preResearch;
+            document.getElementById('lbl-hour').innerHTML = `${t.lblHour} <span class="float-right font-bold text-sky-400">${hour.toString().padStart(2, '0')}:00</span>`;
+            document.getElementById('txt-hour-note').innerText = t.hourNote;
+            document.getElementById('txt-theory-title').innerText = t.theoryTitle;
+            document.getElementById('txt-theory-desc').innerText = t.theoryDesc;
+            document.getElementById('txt-theory-link').innerText = t.theoryLink;
+            document.getElementById('txt-funnel-label').innerText = t.funnelLabel;
+            document.getElementById('txt-cln-lbl').innerText = t.clnLabel;
+            document.getElementById('txt-bits-lbl').innerText = t.bitsLabel;
+            document.getElementById('txt-limit-lbl').innerText = t.limitLabel;
+            document.getElementById('lbl-gauge-tsf').innerText = t.gaugeTsf;
+            document.getElementById('lbl-gauge-met').innerText = t.gaugeMet;
+            document.getElementById('txt-protocol-title').innerText = t.protocolTitle;
+            document.getElementById('txt-footer').innerText = t.footer;
+            document.getElementById('reset-btn').innerText = t.reset;
+
+            const cln = Math.round(3600 / tsf);
+            document.getElementById('cln-val').innerText = `${cln}s`;
+            const bps = ((tokens * 12) / cln).toFixed(1);
+            document.getElementById('bits-val').innerText = bps;
+
+            // Visual Throttling Output
+            const throughput = Math.max(5, 30 - ((hour - 8) * 1.6)); 
+            const output = document.getElementById('output-stream');
+            output.style.width = throughput + '%';
+            output.style.left = (50 - (throughput / 2)) + '%';
+
+            let stateKey = 'green';
+            if (tsf > 100 || (tsf > 60 && load > 92)) stateKey = 'critical';
+            else if (tsf > 40 || load > 75) stateKey = 'red';
+            else if (tsf > 25 || load > 50) stateKey = 'amber';
+
+            const colorMap = { green: '#10b981', amber: '#f59e0b', red: '#ef4444', critical: '#a855f7' };
+            const color = colorMap[stateKey];
+
+            clearInterval(particleTimer);
+            const interval = Math.max(100, 1000 / (tsf / 10)); 
+            particleTimer = setInterval(() => spawnParticle(tsf, tokens, stateKey, color), interval);
+
+            updateRiskUI(stateKey, t, load, tsf, color, effectiveLimit);
+        }
+
+        function updateRiskUI(stateKey, t, load, tsf, color, limit) {
+            const state = t.states[stateKey];
+            document.getElementById('risk-banner').style.borderColor = color;
+            document.getElementById('risk-title').innerText = state.title;
+            document.getElementById('risk-title').style.color = color;
+            document.getElementById('risk-desc').innerText = state.desc;
+
+            const badge = document.getElementById('status-badge');
+            const statusKey = 'status' + stateKey.charAt(0).toUpperCase() + stateKey.slice(1);
+            badge.innerText = t[statusKey];
+            badge.style.color = color;
+            badge.style.borderColor = color + '44';
+            badge.style.backgroundColor = color + '11';
+
+            const tsfP = Math.min(100, (tsf / 80) * 100);
+            const tsfBar = document.getElementById('tsf-bar');
+            tsfBar.style.width = tsfP + '%';
+            tsfBar.style.backgroundColor = color;
+            document.getElementById('tsf-percent').innerText = Math.round(tsfP) + '%';
+            document.getElementById('tsf-percent').style.color = color;
+
+            const metBar = document.getElementById('metabolic-bar');
+            metBar.style.width = load + '%';
+            metBar.style.backgroundColor = color;
+            document.getElementById('metabolic-percent').innerText = load + '%';
+            document.getElementById('metabolic-percent').style.color = color;
+
+            const tsfTag = document.getElementById('tsf-status');
+            const metTag = document.getElementById('metabolic-status');
+            tsfTag.style.color = color; tsfTag.style.backgroundColor = color + '22';
+            metTag.style.color = color; metTag.style.backgroundColor = color + '22';
+
+            if (stateKey === 'green') { tsfTag.innerText = t.tags.optimal; metTag.innerText = t.tags.homeostasis; }
+            else if (stateKey === 'amber') { tsfTag.innerText = t.tags.stressed; metTag.innerText = t.tags.accumulating; }
+            else if (stateKey === 'red') { tsfTag.innerText = t.tags.overload; metTag.innerText = t.tags.exhausted; }
+            else { tsfTag.innerText = t.tags.failure; metTag.innerText = t.tags.externalized; }
+
+            const p = t.protocols[stateKey];
+            document.getElementById('protocol-panel').style.borderColor = color;
+            document.getElementById('protocol-content').innerHTML = `
+                <p class="font-black uppercase tracking-wider" style="color: ${color}">${p.name}</p>
+                <div class="h-px bg-white/5 my-2"></div>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full" style="background:${color}"></div>${p.action1}</li>
+                    <li class="flex items-center gap-2 font-medium italic text-slate-400 leading-tight">${p.action2}</li>
+                </ul>
+            `;
+            
+            document.getElementById('funnel-neck').style.backgroundColor = color;
+            document.getElementById('funnel-neck').style.boxShadow = `0 0 20px ${color}88`;
+            document.getElementById('cln-val').style.color = color;
+            document.getElementById('bits-val').style.color = color;
+            document.getElementById('dynamic-limit-val').style.color = color;
+        }
+
+        Object.values(inputs).forEach(input => input.addEventListener('input', updateSimulation));
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            inputs.tsf.value = 15; inputs.tokens.value = 300; inputs.hour.value = 9; updateSimulation();
+        });
+
+        setLang('en');
+    </script>
+</body>
+</html>
