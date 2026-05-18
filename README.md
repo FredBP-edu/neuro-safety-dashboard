@@ -22,6 +22,8 @@ This tool visualizes the "physics" of cognitive load, metabolic debt, and the ri
 * **Stochasticity (Surprisal):** Based on the Free Energy Principle, this multiplier accounts for the difference between predictable data formatting and high-entropy creative ideation.
 * **Metabolic Debt:** The biological tax paid by the brain to resolve epistemic uncertainty, which compounds exponentially under high loads.
 
+[Free access to the tool](https://fredbp-edu.github.io/neuro-safety-dashboard/)
+
 ---
 
 ## 🧮 Mathematical Model & Formulas
